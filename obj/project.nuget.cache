@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9qijuZsw+GE=",
+  "success": true,
+  "projectFilePath": "D:\\Inmobiliaria-Portfolio\\mvc.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\milen\\.nuget\\packages\\mysqlconnector\\2.6.2\\mysqlconnector.2.6.2.nupkg.sha512"
+  ],
+  "logs": []
+}

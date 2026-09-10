@@ -1,0 +1,145 @@
+@model IEnumerable<mvc.Models.Propietario>
+@{
+    ViewData["Title"] = "propietarios";
+}
+
+<div class="management-page">
+
+    <div class="page-header">
+        <div>
+            <h1>GESTIÓN DE PROPIETARIOS</h1>
+        </div>
+        <a asp-action="Create" class="btn-primary-custom">
+            <span class="btn-icon">+</span>
+            Agregar propietario
+        </a>
+    </div>
+
+    <div class="data-card">
+
+        <div class="data-card-header">
+            <div>
+                <h2>Lista de propietarios</h2>
+                <span class="data-count">@Model.Count() propietarios registrados</span>
+            </div>
+            <div class="search-box">
+                <span>⌕</span>
+                <input type="text" id="searchInput" placeholder="Buscar propietario..." />
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th class="actions-column">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    @foreach (var item in Model)
+                    {
+                        string iniciales = "";
+                        if (!string.IsNullOrEmpty(item.Nombre)) iniciales += item.Nombre[0];
+                        if (!string.IsNullOrEmpty(item.Apellido)) iniciales += item.Apellido[0];
+
+                        <tr class="clickable-row">
+                            <td>
+                                <div class="person-cell">
+                                    <div class="person-avatar">
+                                        @iniciales.ToUpper()
+                                    </div>
+                                    <span>@item.Nombre</span>
+                                </div>
+                            </td>
+                            <td>@item.Apellido</td>
+                            <td>@item.Dni</td>
+                            <td>@item.Email</td>
+                            <td>@item.Telefono</td>
+                            <td class="actions">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="action-btn view" title="Ver detalles">Ver</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn edit" title="Editar">Editar</a>
+                                <button type="button" class="action-btn delete" onclick="confirmarEliminacion(@item.Id)" title="Eliminar">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-footer">
+            <span>
+                Mostrando @Model.Count() propietarios
+            </span>
+            <div class="pagination-custom">
+                <button class="pagination-active">1</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+ <nav aria-label="Navegacion" class="mt-4">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(ViewBag.PaginaActual == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { pagina = ViewBag.PaginaActual - 1 })">Anterior</a>
+        </li>
+        
+        <li class="page-item active">
+            <span class="page-link">Página @ViewBag.PaginaActual</span>
+        </li>
+
+        <li class="page-item @(Model.Count() < 10 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { pagina = ViewBag.PaginaActual + 1 })">Siguiente</a>
+        </li>
+    </ul>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: '¿Eliminar propietario?',
+            text: "Esta acción lo borrará de la base de datos.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#607d59',
+            cancelButtonColor: '#c5abaa',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var form = document.createElement('form');
+                form.method = 'post';
+                form.action = '/Propietarios/Delete/' + id;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        })
+    }
+
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toLowerCase();
+        var tbody = document.getElementById('tableBody');
+        var tr = tbody.getElementsByTagName('tr');
+
+        for (var i = 0; i < tr.length; i++) {
+            tr[i].style.display = "none";
+            var td = tr[i].getElementsByTagName('td');
+            for (var j = 0; j < td.length - 1; j++) {
+                if (td[j]) {
+                    var txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,188 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="home">
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-tag">
+                ALQUILERES TEMPORARIOS
+            </span>
+
+            <h1>
+                Encontrá un lugar donde
+                <span>te quieras quedar.</span>
+            </h1>
+
+            <p>
+                Descubrí inmuebles para alquiler temporario
+                y encontrá el lugar ideal para tu próxima estadía.
+            </p>
+
+            <form asp-controller="Inmuebles" asp-action="Index" method="get" class="search-box">
+
+                <div class="search-field">
+                    <div>
+                        <label>Ubicación</label>
+                        <input type="text" name="ubicacion" placeholder="¿Dónde querés ir?" style="border: none; background: transparent; outline: none; width: 100%; font-size: 1rem; color: #333;" />
+                    </div>
+                </div>
+
+                <div class="search-field">
+                    <div>
+                        <label>Fechas</label>
+                        <input type="text" placeholder="Elegí tus fechas" disabled style="border: none; background: transparent; outline: none; width: 100%; font-size: 1rem; color: #999; cursor: not-allowed;" title="Filtrado por fechas en desarrollo" />
+                    </div>
+                </div>
+
+                <div class="search-field">
+                    <div>
+                        <label>Personas</label>
+                        <input type="number" name="personas" placeholder="¿Cuántos son?" min="1" style="border: none; background: transparent; outline: none; width: 100%; font-size: 1rem; color: #333;" />
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button" style="border: none; cursor: pointer;">
+                    Buscar
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <section class="categories">
+
+        <div class="section-title">
+
+            <span>EXPLORÁ</span>
+
+            <h2>
+                Encontrá el lugar ideal
+            </h2>
+
+            <p>
+                Elegí entre diferentes tipos de inmuebles
+                para tu próxima estadía.
+            </p>
+
+        </div>
+
+        <div class="category-grid">
+
+            <a class="category-card"
+               asp-controller="Inmuebles"
+               asp-action="Index"
+               asp-route-idTipo="1">
+
+                <div class="category-image house">
+                    <img src="~/images/casa.jpg" alt="Casa">
+                </div>
+
+                <div class="category-info">
+
+                    <h3>Casas</h3>
+
+                    <p>
+                        Espacios cómodos para disfrutar
+                        con familia o amigos.
+                    </p>
+
+                    <span>
+                        Ver casas →
+                    </span>
+
+                </div>
+
+            </a>
+
+            <a class="category-card"
+               asp-controller="Inmuebles"
+               asp-action="Index"
+               asp-route-idTipo="2">
+
+                <div class="category-image apartment">
+                    <img src="~/images/departamento.jpg" alt="Departamento">
+                </div>
+
+                <div class="category-info">
+
+                    <h3>Departamentos</h3>
+
+                    <p>
+                        Opciones prácticas para estadías
+                        cortas o prolongadas.
+                    </p>
+
+                    <span>
+                        Ver departamentos →
+                    </span>
+
+                </div>
+
+            </a>
+
+            <a class="category-card"
+               asp-controller="Inmuebles"
+               asp-action="Index"
+               asp-route-idTipo="5">
+
+                <div class="category-image weekend">
+                    <img src="~/images/escapada.jpg" alt="Escapada">
+                </div>
+
+                <div class="category-info">
+
+                    <h3>Escapadas</h3>
+
+                    <p>
+                        Lugares pensados para desconectarte
+                        y disfrutar.
+                    </p>
+
+                    <span>
+                        Explorar →
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="owner-section">
+
+        <div class="owner-content">
+
+            <span>
+                PARA PROPIETARIOS
+            </span>
+
+            <h2>
+                ¿Tenés un inmueble?
+            </h2>
+
+            <p>
+                Administrá tus propiedades, inquilinos y
+                alquileres desde un solo lugar, de manera
+                rápida y sencilla.
+            </p>
+
+            <a asp-controller="Propietarios"
+               asp-action="Index"
+               class="owner-button">
+
+                Administrar mis propiedades →
+
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
